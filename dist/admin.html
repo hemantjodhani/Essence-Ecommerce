@@ -1,0 +1,220 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="https://code.jquery.com/jquery-3.7.0.js"
+        integrity="sha256-JlqSTELeR4TLqP0OG9dxM7yDPqX1ox/HfgiSLBj8+kM=" crossorigin="anonymous"></script>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+        }
+        
+        .tabs{
+            display: flex;
+            flex-direction: column;
+            height: 100%;
+            position: fixed;
+            background-color: #3c434a;
+            width: 10%;
+        }
+        a{
+            text-decoration: none;
+            font-family:  -apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Oxygen-Sans,Ubuntu,Cantarell,"Helvetica Neue",sans-serif;
+            font-family: 500;
+            color: white;
+            cursor: pointer;
+            padding: 10px; 
+            border-bottom: 1px solid white;
+        }
+
+        .add-form-anchor{
+            background-color: blue;
+        }
+        .add-product-form{
+            margin: 0 auto;
+            width: 23%;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            text-align: center;
+            gap: 20px;
+        }
+        .admin-header{
+            text-align: end;
+            padding: 5px;
+            background-color: #3c434a;
+            color: white;
+            font-family:  -apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Oxygen-Sans,Ubuntu,Cantarell,"Helvetica Neue",sans-serif;
+            font-family: 500;
+            padding-right: 20px;
+        }
+        .add-product-form{
+            font-family:  -apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Oxygen-Sans,Ubuntu,Cantarell,"Helvetica Neue",sans-serif;
+            font-family: 500;
+            /* display: none; */
+        }
+        td{
+            text-align: center;
+            width: 0%;
+            padding-bottom: 30px;
+        }
+        table{
+          font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+        }
+        th{
+          padding-bottom: 25px;
+        }
+        table{
+            margin: 0 auto;
+            width: 81%;
+        }
+        .orders-anchor{
+            background-color: blue;
+        }
+        .spinner {
+            width: 56px;
+            height: 56px;
+            border-radius: 50%;
+            border: 9px solid;
+            border-color: #dbdcef;
+            border-right-color: #474bff;
+            animation: spinner-d3wgkg 1s infinite linear;
+            }
+
+            @keyframes spinner-d3wgkg {
+            to {
+                transform: rotate(1turn);
+            }
+        }
+        .loading-wheel{
+            text-align: center;
+        }
+        .admin-content{
+            /* display: none; */
+        }
+        .login{
+            margin: 0 auto;
+            width: 22%;
+            display: flex;
+            flex-direction: column;
+            gap: 18px;
+            margin-top: 10%;
+        }
+        .loading-wheel{
+            display: flex;
+            justify-content: center;
+            margin-top: 20px;
+            display: none;
+        }
+        .add-product-form-wrap{
+            /* display: none; */
+        }
+        .login{
+            display: none;
+        }
+        .admin-content{
+            display: block;
+        }
+        .order-table{
+            /* display: none; */
+        }
+        button{
+            cursor: pointer;
+        }
+        .delete-product-form{
+            text-align: end;
+            padding-right: 25px;
+            margin-bottom: 20px;
+        }
+        .order-status-updater{
+            text-align: end;
+        }
+        td{
+            width: 10%;
+        }
+    </style>
+</head>
+<body class="admin-page">
+
+
+    <form class="login">
+        <label for="email">E-mail:</label>
+        <input type="email" name="email">
+        <label for="password">password:</label>
+        <input type="password" name="password">
+        <button>login</button>
+    </form>
+    <div class="loading-wheel" >
+        <div class="spinner" style="text-align: center;"></div>
+    </div>
+    <div class="admin-content">
+    <div class="admin-header">Howdy, Hemant Jodhani</div>
+    <div class="tabs" >
+        <a class="orders-anchor" href="#">Orders</a>
+        <a href="#">Products</a>
+        <a class="logout-btn">Logout</a>
+    </div>
+    <div class="add-product-form-wrap">
+        <form class="add-product-form">
+            <label for="name" style="margin-top: 20%;">Product Name</label>
+            <input type="text" name="name" required>
+            <label for="file-input">Product Price</label>
+            <input type="file" name="file-input" required>   
+            <label for="price">Price</label>
+            <input type="number" name="price" required>
+            <button type="submit">Add Product</button>
+        </form>
+        <div style="text-align: center; ">
+            <button style="width: 23%;" class="add-cancelation-button">Cancel</button>
+        </div>
+    </div>
+    <div style="text-align: center; width: 30%; padding: 10px 0px;">
+        <button style="cursor: pointer;" class="add-product-nagigation">Add Product</button>
+    </div>
+    <table class="order-table">
+        <thead>
+          <tr>
+            <th>Name</th>
+            <th>Email</th>
+            <th>Phone</th>
+            <th>Address</th>
+            <th>Address 2</th>
+            <th>City</th>
+            <th>Pincode</th>
+            <th>Items</th>
+            <th>Total Price</th>
+            <th>Status</th>
+          </tr>
+        </thead>
+        <tbody id="order-table-body">
+
+        </tbody>
+    </table>
+    <form class="delete-product-form">
+        <input class="id-input" placeholder="Enter ID here" type="text" required>
+        <button>Delete Product</button>
+    </form>
+    <table>
+        <thead>
+          <tr>
+            <th>Product ID</th>
+            <th>Product name</th>
+            <th>Product Image</th>
+            <th>Price</th>
+          </tr>
+        </thead>
+        <tbody id="products-table">
+
+        </tbody>
+    </table>
+      
+
+    </div>
+      <script src="bundle.js"></script>
+    </body>
+    </html>

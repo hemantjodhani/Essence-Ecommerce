@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Checkout</title>
+    <script src="https://code.jquery.com/jquery-3.7.0.js" integrity="sha256-JlqSTELeR4TLqP0OG9dxM7yDPqX1ox/HfgiSLBj8+kM=" crossorigin="anonymous"></script>
+    <style>
+        form{
+            display: flex;
+            flex-direction: column;
+            margin:  0 auto;
+            width: 600px;
+            gap: 20px;
+        }
+        h3{
+            margin-bottom: 50px;
+        }
+        th,td{
+            width: 0%;
+            text-align: center;
+        }
+        table{
+            margin: 0 auto;
+            width: 600px;
+        }
+        td{
+            width: 11%;
+            text-align: center;
+        }
+    </style>
+</head>
+<body class="checkout-page">
+    <h3>Checkout</h3>
+    <table class="final-order-table">
+        <tr>
+            <th>Product Name</th>
+            <th>Quantity</th>
+            <th>Per Unit cost</th>
+            <th>Total cost of Item</th>
+        </tr>
+    </table>
+    <p style="text-align: center; margin-top: 30px;" class="total-cart-price"></p>
+    <form class="final-order-form">
+        <input type="text" name="name" placeholder="name" required>
+        <input type="text" name="email" placeholder="email" required>
+        <input type="number" name="phone" placeholder="phone" required>
+        <input type="text" name="address" placeholder="address" required>
+        <input type="text" name="address-2" placeholder="address-2" required>
+        <input type="text" name="city" placeholder="city" required>
+        <input type="number" name="pincode" placeholder="pincode" required>
+        <button type="submit">Place order</button>
+    </form>      
+    <script src="bundle.js"></script>
+</body>
+</html>
