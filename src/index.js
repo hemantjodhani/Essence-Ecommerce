@@ -60,12 +60,6 @@ get_user_id()
       order_handler()
       if ($(".home-page").length) {
         data_appender();
-        $(".checkout").mouseenter(function () {
-          $(".cart-section").show()
-        });
-        $(".cart-section").mouseleave(function () {
-          $(".cart-section").hide()
-        });
       }
       if($(".admin-page").length){
         delete_product()

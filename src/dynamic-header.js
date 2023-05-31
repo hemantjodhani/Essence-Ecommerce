@@ -1,11 +1,17 @@
 
 function header_generator(){
-    // alert()
+    
+    $(".checkout").mouseenter(function () {
+        $(".cart-section").show()
+      });
+      $(".cart-section").mouseleave(function () {
+        $(".cart-section").hide()
+      });
     $.get("header.html")
         
         .done( function ( data ) {
             // console.log(data)
-            $(".whole-web").html(data)         
+            $(".index-header").html(data)         
         })
         .fail(function(){
             alert("Sorry, couldn't load the data.")
