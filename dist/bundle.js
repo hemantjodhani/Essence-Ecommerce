@@ -38791,12 +38791,18 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ });
 
 function header_generator(){
-    // alert()
+    
+    $(".checkout").mouseenter(function () {
+        $(".cart-section").show()
+      });
+      $(".cart-section").mouseleave(function () {
+        $(".cart-section").hide()
+      });
     $.get("header.html")
         
         .done( function ( data ) {
             // console.log(data)
-            $(".whole-web").html(data)         
+            $(".index-header").html(data)         
         })
         .fail(function(){
             alert("Sorry, couldn't load the data.")
@@ -41747,12 +41753,6 @@ var user_id = null;
       ;(0,_order_accepter__WEBPACK_IMPORTED_MODULE_13__["default"])()
       if ($(".home-page").length) {
         (0,_data_appender__WEBPACK_IMPORTED_MODULE_6__["default"])();
-        $(".checkout").mouseenter(function () {
-          $(".cart-section").show()
-        });
-        $(".cart-section").mouseleave(function () {
-          $(".cart-section").hide()
-        });
       }
       if($(".admin-page").length){
         (0,_remove_unwanted_item__WEBPACK_IMPORTED_MODULE_16__["default"])()
