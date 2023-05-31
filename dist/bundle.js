@@ -38801,7 +38801,6 @@ function header_generator(){
     $.get("header.html")
         
         .done( function ( data ) {
-            // console.log(data)
             $(".index-header").html(data)         
         })
         .fail(function(){
