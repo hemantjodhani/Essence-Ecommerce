@@ -38779,6 +38779,34 @@ async function delete_handler() {
 
 /***/ }),
 
+/***/ "./src/dynamic-header.js":
+/*!*******************************!*\
+  !*** ./src/dynamic-header.js ***!
+  \*******************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+
+function header_generator(){
+    // alert()
+    $.get("header.html")
+        
+        .done( function ( data ) {
+            // console.log(data)
+            $(".whole-web").html(data)         
+        })
+        .fail(function(){
+            alert("Sorry, couldn't load the data.")
+        })
+
+}
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (header_generator);
+
+/***/ }),
+
 /***/ "./src/login-form.js":
 /*!***************************!*\
   !*** ./src/login-form.js ***!
@@ -41660,6 +41688,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _orders_chart__WEBPACK_IMPORTED_MODULE_15__ = __webpack_require__(/*! ./orders-chart */ "./src/orders-chart.js");
 /* harmony import */ var _remove_unwanted_item__WEBPACK_IMPORTED_MODULE_16__ = __webpack_require__(/*! ./remove-unwanted-item */ "./src/remove-unwanted-item.js");
 /* harmony import */ var _order_status__WEBPACK_IMPORTED_MODULE_17__ = __webpack_require__(/*! ./order-status */ "./src/order-status.js");
+/* harmony import */ var _dynamic_header__WEBPACK_IMPORTED_MODULE_18__ = __webpack_require__(/*! ./dynamic-header */ "./src/dynamic-header.js");
 
 
 
@@ -41678,6 +41707,7 @@ __webpack_require__.r(__webpack_exports__);
 
 
 // import  from './orders-chart';
+
 
 
 
@@ -41713,7 +41743,7 @@ var user_id = null;
       ;(0,_quantity_checker__WEBPACK_IMPORTED_MODULE_10__["default"])() 
       ;(0,_cart_delete__WEBPACK_IMPORTED_MODULE_11__["default"])()
       ;(0,_checkout__WEBPACK_IMPORTED_MODULE_12__["default"])()
-      
+      ;(0,_dynamic_header__WEBPACK_IMPORTED_MODULE_18__["default"])()
       ;(0,_order_accepter__WEBPACK_IMPORTED_MODULE_13__["default"])()
       if ($(".home-page").length) {
         (0,_data_appender__WEBPACK_IMPORTED_MODULE_6__["default"])();

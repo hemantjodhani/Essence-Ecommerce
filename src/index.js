@@ -23,6 +23,7 @@ import admin_data_visibility from './admin-content-visibility';
 import order_table from './orders-chart'
 import delete_product from './remove-unwanted-item'
 import update_order_status from './order-status';
+import header_generator from './dynamic-header';
 const firebaseConfig = {
   apiKey: "AIzaSyDSuPN5A7lGyDhnZ_rFtEwN5LUEVu3YrkM",
   authDomain: "essence-e-commerce.firebaseapp.com",
@@ -55,7 +56,7 @@ get_user_id()
       quantity_handler() 
       cart_data_handler()
       checkout_handler()
-      
+      header_generator()
       order_handler()
       if ($(".home-page").length) {
         data_appender();
