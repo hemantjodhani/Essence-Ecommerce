@@ -55,6 +55,7 @@ get_user_id()
       quantity_handler() 
       cart_data_handler()
       checkout_handler()
+      
       order_handler()
       if ($(".home-page").length) {
         data_appender();

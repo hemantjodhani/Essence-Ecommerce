@@ -41713,6 +41713,7 @@ var user_id = null;
       ;(0,_quantity_checker__WEBPACK_IMPORTED_MODULE_10__["default"])() 
       ;(0,_cart_delete__WEBPACK_IMPORTED_MODULE_11__["default"])()
       ;(0,_checkout__WEBPACK_IMPORTED_MODULE_12__["default"])()
+      
       ;(0,_order_accepter__WEBPACK_IMPORTED_MODULE_13__["default"])()
       if ($(".home-page").length) {
         (0,_data_appender__WEBPACK_IMPORTED_MODULE_6__["default"])();
