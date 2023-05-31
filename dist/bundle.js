@@ -38789,16 +38789,10 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
 /* harmony export */ });
-
 function header_generator(){
-    
-    $(".checkout").mouseenter(function () {
-        $(".cart-section").show()
-      });
-      $(".cart-section").mouseleave(function () {
-        $(".cart-section").hide()
-      });
-    $.get("header.html")
+    $(document).ready(function(){
+
+        $.get("header.html")
         
         .done( function ( data ) {
             $(".index-header").html(data)         
@@ -38806,6 +38800,16 @@ function header_generator(){
         .fail(function(){
             alert("Sorry, couldn't load the data.")
         })
+        $(document).on("mouseenter", ".checkout", function () {
+            $(".cart-section").show()
+        });
+  
+        $(".cart-section").mouseleave(function () {
+            $(".cart-section").hide()
+        });
+    });
+
+    
 
 }
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (header_generator);
@@ -41736,6 +41740,7 @@ var user_id = null;
     user_id = id;
 
     $(document).ready(function () {
+      
       // These are admin's functions
       (0,_login_form__WEBPACK_IMPORTED_MODULE_3__["default"])();
       (0,_logout__WEBPACK_IMPORTED_MODULE_4__["default"])();
@@ -41752,12 +41757,15 @@ var user_id = null;
       ;(0,_order_accepter__WEBPACK_IMPORTED_MODULE_13__["default"])()
       if ($(".home-page").length) {
         (0,_data_appender__WEBPACK_IMPORTED_MODULE_6__["default"])();
+        
+
       }
       if($(".admin-page").length){
         (0,_remove_unwanted_item__WEBPACK_IMPORTED_MODULE_16__["default"])()
         ;(0,_orders_chart__WEBPACK_IMPORTED_MODULE_15__["default"])()
         // admin_data_visibility()
         ;(0,_order_status__WEBPACK_IMPORTED_MODULE_17__["default"])()
+        
       }
     });
   })

@@ -77,6 +77,10 @@ ul,.header-section,.header-section-left{
     top: 0px;
     background-color: white; 
     opacity: 0.8;
+}
+.index-header{
+    position: sticky;
+    top: 0px;
     z-index: 10;
 }
 /* End of section-1 */

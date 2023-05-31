@@ -1,13 +1,7 @@
-
 function header_generator(){
-    
-    $(".checkout").mouseenter(function () {
-        $(".cart-section").show()
-      });
-      $(".cart-section").mouseleave(function () {
-        $(".cart-section").hide()
-      });
-    $.get("header.html")
+    $(document).ready(function(){
+
+        $.get("header.html")
         
         .done( function ( data ) {
             $(".index-header").html(data)         
@@ -15,6 +9,16 @@ function header_generator(){
         .fail(function(){
             alert("Sorry, couldn't load the data.")
         })
+        $(document).on("mouseenter", ".checkout", function () {
+            $(".cart-section").show()
+        });
+  
+        $(".cart-section").mouseleave(function () {
+            $(".cart-section").hide()
+        });
+    });
+
+    
 
 }
 export default header_generator;

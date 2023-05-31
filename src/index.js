@@ -44,6 +44,7 @@ get_user_id()
     user_id = id;
 
     $(document).ready(function () {
+      
       // These are admin's functions
       handle_login_form();
       logout_handler();
@@ -60,12 +61,15 @@ get_user_id()
       order_handler()
       if ($(".home-page").length) {
         data_appender();
+        
+
       }
       if($(".admin-page").length){
         delete_product()
         order_table()
         // admin_data_visibility()
         update_order_status()
+        
       }
     });
   })
