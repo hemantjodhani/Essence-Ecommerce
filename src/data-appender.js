@@ -12,7 +12,7 @@ function data_appender(){
 
      Products.forEach( product => {
         $(".all-products").append(`
-            <div class="product">
+            <div class="product" product-data="${product.id}">
                 <img  src="${product.Image_URL}">
                 <div class="cart-container">
                 <button class="cart-btn" >Add to cart</button>
@@ -27,28 +27,6 @@ function data_appender(){
 
     } );
 
-    return;
-
-     for(var i = 0 ; i <= Products.length-1 ; i++){
-         console.log(i)
-         console.log(Products[i].Image_URL)
-            $(".all-products").append(`
-                                            <div class="product">
-                                            <img  src="${Products[i].Image_URL}">
-                                            <div class="cart-container">
-                                            <button>Add to cart</button>
-                                            </div>
-                                            <div class="product-details">
-                                                <p class="product-type">topshop</p>
-                                                <p class="product-name">${Products[i].Product_Name}</p>
-                                                <P class="product-price">$ ${Products[i].Price}</P>
-                                            </div>
-                                            </div>
-                                        `)
-    
-        }
 });
-
 }
 export default data_appender;
-

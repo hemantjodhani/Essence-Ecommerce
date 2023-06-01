@@ -38443,87 +38443,104 @@ __webpack_require__.r(__webpack_exports__);
 
 
 async function cart_data_appender() {
-
   const db = (0,firebase_firestore__WEBPACK_IMPORTED_MODULE_0__.getFirestore)();
-  // let pageReloaded = false;
+  const user_id = await (0,_anonymous_login__WEBPACK_IMPORTED_MODULE_1__["default"])();
+
   $(document).on("click", ".cart-btn", async function (e) {
     e.preventDefault();
-    var product = $(this).parent().parent();
-    var image = product.find("img").attr("src");
-    var name = product.find(".product-name").text();
-    var price = product.find(".product-price").text();
-
-    var user_id = await (0,_anonymous_login__WEBPACK_IMPORTED_MODULE_1__["default"])()
+    const product = $(this).parent().parent();
+    const image = product.find("img").attr("src");
+    const name = product.find(".product-name").text();
+    const price = product.find(".product-price").text();
+    const product_id = product.attr("product-data");
 
     const docRef = (0,firebase_firestore__WEBPACK_IMPORTED_MODULE_0__.doc)(db, 'Users', user_id);
 
     try {
-      await (0,firebase_firestore__WEBPACK_IMPORTED_MODULE_0__.updateDoc)(docRef, {
-        products: (0,firebase_firestore__WEBPACK_IMPORTED_MODULE_0__.arrayUnion)({
-          Product_Name: name,
-          Price: price,
-          Image: image
-        })
-      });
+      const docSnapshot = await (0,firebase_firestore__WEBPACK_IMPORTED_MODULE_0__.getDoc)(docRef);
+      if (docSnapshot.exists()) {
+        const userData = docSnapshot.data();
+        var cartProducts = userData.products;
 
+        if (!cartProducts) {
+          cartProducts = []; 
+        }
 
+        const existingProduct = cartProducts.find(function (p) {
+          return p.product_id == product_id;
+        });
+
+        if (existingProduct) {
+          existingProduct.quantity_ += 1;
+          await (0,firebase_firestore__WEBPACK_IMPORTED_MODULE_0__.updateDoc)(docRef, { products: cartProducts });
+        } else {
+          const newProduct = {
+            Product_Name: name,
+            Price: price,
+            Image: image,
+            product_id: product_id,
+            quantity_: 1
+          };
+          await (0,firebase_firestore__WEBPACK_IMPORTED_MODULE_0__.updateDoc)(docRef, { products: (0,firebase_firestore__WEBPACK_IMPORTED_MODULE_0__.arrayUnion)(newProduct) });
+        }
+      }
     } catch (error) {
       console.error(error);
     }
   });
-  const user_id = await (0,_anonymous_login__WEBPACK_IMPORTED_MODULE_1__["default"])('user_id');
+
   const docRef = (0,firebase_firestore__WEBPACK_IMPORTED_MODULE_0__.doc)(db, 'Users', user_id);
 
-  (0,firebase_firestore__WEBPACK_IMPORTED_MODULE_0__.onSnapshot)(docRef, (snapshot) => {
+  (0,firebase_firestore__WEBPACK_IMPORTED_MODULE_0__.onSnapshot)(docRef, function (snapshot) {
     const data = snapshot.data();
     const cart_section = $(".cart-section");
     cart_section.empty();
 
     const checkout_items = $(".cart-page table");
-    // console.log(checkout_items)
-    // checkout_items.empty();
-    var reset_items = $("item-wrap")
-    reset_items.remove()
-    if (data.products == undefined) {
-      return
+    checkout_items.empty();
+
+    if (data.products === undefined) {
+      return;
     }
-    data.products.forEach((product) => {
+
+    data.products.forEach(function (product) {
       cart_section.prepend(`
-      <div class="cart-item">
-        <div class="img-span-wrap">
-        <span class="windows-wala-button">X</span>
-        <img width="50px" src="${product.Image}">
+        <div class="cart-item">
+          <div class="img-span-wrap">
+            <span class="windows-wala-button">X</span>
+            <img width="50px" src="${product.Image}">
+          </div>
+          <p class="product-name"><span>1X</span>${product.Product_Name}</p>
+          <p class="product-price">${product.Price}</p>
         </div>
-        <p class="product-name"><span>1X</span>${product.Product_Name}</p>
-        <p class="product-price">${product.Price}</p>
-      </div>
       `);
+
       checkout_items.append(`
-      
-      <tr class="item-wrap">
-        <td>
-        <span class="windows-wala-button cart-delete-btn">X</span>
-        <img width="50px" src="${product.Image}">
-        <span>${product.Product_Name}</span>
-        </td>
-        <td>${product.Price}</td>
-        <td><input min="1" max="10" class="qauntity-input" style="margin: 0 auto; width: 80px;" type="number"></td>
-        <td>${product.Price}</td>
-      </tr>  
+        <tr class="item-wrap">
+          <td>
+            <span class="windows-wala-button cart-delete-btn">X</span>
+            <img width="50px" src="${product.Image}">
+            <span>${product.Product_Name}</span>
+          </td>
+          <td>${product.Price}</td>
+          <td><input min="1" max="10" class="quantity-input" style="margin: 0 auto; width: 80px;" type="number" "></td>
+          <td>${product.Price}</td>
+        </tr>
       `);
     });
 
-	var totalPrice = 0;
-    data.products.forEach((product) => {
+    var total_price = 0;
+    var total_quantity = 0;
+    data.products.forEach(function (product) {
       const price = parseFloat(product.Price.replace('$', ''));
-      totalPrice += price;
+      total_price += price;
+      total_quantity += product.quantity_; 
     });
 
-	$(".total-cart-value").text("Total price"+ totalPrice)
 
-
-    $(".checkout span").text(data.products.length)
-    $(".qauntity-input").val(1)
+    $(".total-cart-value").text("Total price: $" + total_price);
+    $(".checkout span").text(total_quantity);
+    $(".quantity-input").val(1);
   });
 }
 
@@ -38596,11 +38613,10 @@ function checkout_handler() {
   $(".checkout-btn").click(function() {
     var all_cart_items = $(".item-wrap");
     var cart_items = [];
-
     all_cart_items.each(function(index, item) {
       var name = $(item).find("span").eq(1).text();
       var price = $(item).find("td").eq(1).text();
-      var quantity = $(item).find(".qauntity-input").val();
+      var quantity = $(item).find(".quantity-input").val();
 
       var cart_item_data = {
         name: name,
@@ -38616,10 +38632,8 @@ function checkout_handler() {
   });
 
   $(document).ready(function() {
-    if ($(".checkout-page").length > 0) {
-      var cart_items = JSON.parse(localStorage.getItem("cartItems"));
-      calculate_and_display_total_cart_price(cart_items);
-    }
+    var cart_items = JSON.parse(localStorage.getItem("cartItems"));
+    calculate_and_display_total_cart_price(cart_items);
   });
 }
 
@@ -38630,10 +38644,10 @@ function calculate_and_display_total_cart_price(cart_items) {
     cart_items.forEach(function(item) {
       $(".final-order-table tbody").append(`
         <tr>
-          <td class="item-name">${item.name}</td>
-          <td class="item-quantity">${item.quantity}</td>
-          <td class="item-price">${item.price}</td>
-          <td class="total-cost-of-item">$ ${calculate_total(item.price, item.quantity)}</td>
+          <td>${item.name}</td>
+          <td>${item.quantity}</td>
+          <td>${item.price}</td>
+          <td>$ ${calculate_total(item.price, item.quantity)}</td>
         </tr>
       `);
 
@@ -38682,7 +38696,7 @@ function data_appender(){
 
      Products.forEach( product => {
         $(".all-products").append(`
-            <div class="product">
+            <div class="product" product-data="${product.id}">
                 <img  src="${product.Image_URL}">
                 <div class="cart-container">
                 <button class="cart-btn" >Add to cart</button>
@@ -38697,32 +38711,9 @@ function data_appender(){
 
     } );
 
-    return;
-
-     for(var i = 0 ; i <= Products.length-1 ; i++){
-         console.log(i)
-         console.log(Products[i].Image_URL)
-            $(".all-products").append(`
-                                            <div class="product">
-                                            <img  src="${Products[i].Image_URL}">
-                                            <div class="cart-container">
-                                            <button>Add to cart</button>
-                                            </div>
-                                            <div class="product-details">
-                                                <p class="product-type">topshop</p>
-                                                <p class="product-name">${Products[i].Product_Name}</p>
-                                                <P class="product-price">$ ${Products[i].Price}</P>
-                                            </div>
-                                            </div>
-                                        `)
-    
-        }
 });
-
 }
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (data_appender);
-
-
 
 /***/ }),
 
@@ -39106,9 +39097,13 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
 /* harmony export */ });
-function quantity_handler() {
+/* harmony import */ var firebase_firestore__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! firebase/firestore */ "./node_modules/firebase/firestore/dist/esm/index.esm.js");
+/* harmony import */ var _anonymous_login__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./anonymous-login */ "./src/anonymous-login.js");
 
-  $(document).on('change', '.qauntity-input', function() {
+
+
+function quantity_handler() {
+  $(document).on('change', '.quantity-input', function() {
     var quantity = $(this).val();
 
     if ($(this).val() === quantity) {
@@ -39118,13 +39113,14 @@ function quantity_handler() {
     }
   });
 
-  $(".quantity-update-btn").click(function() {
+  $(".quantity-update-btn").click(async function() {
     var all_cart_items = $("tr");
     var updatedCartItems = [];
     var totalCartPrice = 0;
+    var totalQuantity = 0;
 
     all_cart_items.each(function(index, item) {
-      var quantityInput = $(item).find('.qauntity-input');
+      var quantityInput = $(item).find('.quantity-input');
       var quantity = parseInt(quantityInput.val(), 10);
 
       if (!isNaN(quantity)) {
@@ -39143,13 +39139,47 @@ function quantity_handler() {
         $(item).find('td:nth-child(4)').text('$ ' + totalPrice.toFixed(2));
 
         totalCartPrice += totalPrice;
+        totalQuantity += quantity;
       }
     });
 
-    console.log("Updated Cart Items:", updatedCartItems);
-    $(".total-cart-value").text("Total price"+ totalCartPrice)
+    $(".total-cart-value").text("Total price: $" + totalCartPrice.toFixed(2));
+    $(".checkout span").text(totalQuantity);
   });
 
+  $(document).ready(async function() {
+    const user_id = await (0,_anonymous_login__WEBPACK_IMPORTED_MODULE_1__["default"])();
+    const db = (0,firebase_firestore__WEBPACK_IMPORTED_MODULE_0__.getFirestore)();
+    const docRef = (0,firebase_firestore__WEBPACK_IMPORTED_MODULE_0__.doc)(db, 'Users', user_id);
+    const docSnap = await (0,firebase_firestore__WEBPACK_IMPORTED_MODULE_0__.getDoc)(docRef);
+
+    if (docSnap.exists()) {
+      const userData = docSnap.data();
+
+      if (userData && userData.products) {
+        userData.products.forEach(function(product, index) {
+          var quantityInput = $("tr:eq(" + index + ")").find('.quantity-input');
+          quantityInput.val(product.quantity_);
+
+          var price = parseFloat($("tr:eq(" + index + ")").find('td:nth-child(2)').text().replace('$', '').trim());
+          var totalPrice = product.quantity_ * price;
+          $("tr:eq(" + index + ")").find('td:nth-child(4)').text('$ ' + totalPrice.toFixed(2));
+        });
+
+        var totalCartPrice = userData.products.reduce(function(acc, product) {
+          var price = parseFloat(product.Price.replace('$', ''));
+          return acc + product.quantity_ * price;
+        }, 0);
+
+        var totalQuantity = userData.products.reduce(function(acc, product) {
+          return acc + product.quantity_;
+        }, 0);
+
+        $(".total-cart-value").text("Total price: $" + totalCartPrice.toFixed(2));
+        $(".checkout span").text(totalQuantity);
+      }
+    }
+  });
 }
 
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (quantity_handler);
@@ -41715,7 +41745,6 @@ __webpack_require__.r(__webpack_exports__);
 
 
 
-// import  from './orders-chart';
 
 
 

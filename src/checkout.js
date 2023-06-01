@@ -2,11 +2,10 @@ function checkout_handler() {
   $(".checkout-btn").click(function() {
     var all_cart_items = $(".item-wrap");
     var cart_items = [];
-
     all_cart_items.each(function(index, item) {
       var name = $(item).find("span").eq(1).text();
       var price = $(item).find("td").eq(1).text();
-      var quantity = $(item).find(".qauntity-input").val();
+      var quantity = $(item).find(".quantity-input").val();
 
       var cart_item_data = {
         name: name,
@@ -22,10 +21,8 @@ function checkout_handler() {
   });
 
   $(document).ready(function() {
-    if ($(".checkout-page").length > 0) {
-      var cart_items = JSON.parse(localStorage.getItem("cartItems"));
-      calculate_and_display_total_cart_price(cart_items);
-    }
+    var cart_items = JSON.parse(localStorage.getItem("cartItems"));
+    calculate_and_display_total_cart_price(cart_items);
   });
 }
 
@@ -36,10 +33,10 @@ function calculate_and_display_total_cart_price(cart_items) {
     cart_items.forEach(function(item) {
       $(".final-order-table tbody").append(`
         <tr>
-          <td class="item-name">${item.name}</td>
-          <td class="item-quantity">${item.quantity}</td>
-          <td class="item-price">${item.price}</td>
-          <td class="total-cost-of-item">$ ${calculate_total(item.price, item.quantity)}</td>
+          <td>${item.name}</td>
+          <td>${item.quantity}</td>
+          <td>${item.price}</td>
+          <td>$ ${calculate_total(item.price, item.quantity)}</td>
         </tr>
       `);
 

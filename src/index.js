@@ -19,7 +19,6 @@ import cart_data_handler from './cart-delete';
 import checkout_handler from './checkout';
 import order_handler from './order-accepter';
 import admin_data_visibility from './admin-content-visibility';
-// import  from './orders-chart';
 import order_table from './orders-chart'
 import delete_product from './remove-unwanted-item'
 import update_order_status from './order-status';
