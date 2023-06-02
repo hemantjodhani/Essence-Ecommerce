@@ -66,7 +66,7 @@ get_user_id()
       if($(".admin-page").length){
         delete_product()
         order_table()
-        // admin_data_visibility()
+        admin_data_visibility()
         update_order_status()
         
       }

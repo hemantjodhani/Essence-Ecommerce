@@ -38384,6 +38384,20 @@ function admin_data_visibility(){
         alert("product added successfully");
         $(".add-product-form-wrap").hide()
     });
+    $(".products-anchor").click(function(){
+
+        $(this).css("background" , "blue")
+        $(".products-wrap").show()
+        $(".order-table").hide()
+        $(".orders-anchor").css("background" , "none")
+    });
+    $(".orders-anchor").click(function(){
+
+        $(this).css("background" , "blue")
+        $(".order-table").show()
+        $(".products-wrap").hide()
+        $(".products-anchor").css("background" , "none")
+    });
 }
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (admin_data_visibility);
 
@@ -41792,7 +41806,7 @@ var user_id = null;
       if($(".admin-page").length){
         (0,_remove_unwanted_item__WEBPACK_IMPORTED_MODULE_16__["default"])()
         ;(0,_orders_chart__WEBPACK_IMPORTED_MODULE_15__["default"])()
-        // admin_data_visibility()
+        ;(0,_admin_content_visibility__WEBPACK_IMPORTED_MODULE_14__["default"])()
         ;(0,_order_status__WEBPACK_IMPORTED_MODULE_17__["default"])()
         
       }

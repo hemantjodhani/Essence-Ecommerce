@@ -94,9 +94,7 @@
         .loading-wheel{
             text-align: center;
         }
-        .admin-content{
-            /* display: none; */
-        }
+     
         .login{
             margin: 0 auto;
             width: 22%;
@@ -109,18 +107,6 @@
             display: flex;
             justify-content: center;
             margin-top: 20px;
-            display: none;
-        }
-        .add-product-form-wrap{
-            /* display: none; */
-        }
-        .login{
-            display: none;
-        }
-        .admin-content{
-            display: block;
-        }
-        .order-table{
             /* display: none; */
         }
         button{
@@ -136,6 +122,25 @@
         }
         td{
             width: 10%;
+        }
+        .admin-content{
+            display: none;
+        }
+        .loading-wheel{
+            display: none;
+        }
+        .order-table{
+            padding-left: 30px ;
+        }
+        .add-product-form-wrap{
+            display: none;
+        }
+        .products-wrap{
+            display: none;
+        }
+        .admin-header{
+            position: sticky;
+            top: 0;
         }
     </style>
 </head>
@@ -156,7 +161,7 @@
     <div class="admin-header">Howdy, Hemant Jodhani</div>
     <div class="tabs" >
         <a class="orders-anchor" href="#">Orders</a>
-        <a href="#">Products</a>
+        <a class="products-anchor" href="#">Products</a>
         <a class="logout-btn">Logout</a>
     </div>
     <div class="add-product-form-wrap">
@@ -195,23 +200,25 @@
 
         </tbody>
     </table>
-    <form class="delete-product-form">
-        <input class="id-input" placeholder="Enter ID here" type="text" required>
-        <button>Delete Product</button>
-    </form>
-    <table>
-        <thead>
-          <tr>
-            <th>Product ID</th>
-            <th>Product name</th>
-            <th>Product Image</th>
-            <th>Price</th>
-          </tr>
-        </thead>
-        <tbody id="products-table">
-
-        </tbody>
-    </table>
+    <div class="products-wrap">
+        <form class="delete-product-form">
+            <input class="id-input" placeholder="Enter ID here" type="text" required>
+            <button>Delete Product</button>
+        </form>
+        <table>
+            <thead>
+              <tr>
+                <th>Product ID</th>
+                <th>Product name</th>
+                <th>Product Image</th>
+                <th>Price</th>
+              </tr>
+            </thead>
+            <tbody id="products-table">
+    
+            </tbody>
+        </table>
+    </div>
       
 
     </div>
