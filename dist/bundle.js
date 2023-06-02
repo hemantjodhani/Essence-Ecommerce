@@ -41796,6 +41796,10 @@ var user_id = null;
         ;(0,_order_status__WEBPACK_IMPORTED_MODULE_17__["default"])()
         
       }
+      $(document).on("click" , ".essence-logo" , function(){
+
+        $("html, body").animate({scrollTop: 0}, 500);
+      });
     });
   })
 })();

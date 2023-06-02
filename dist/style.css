@@ -78,6 +78,9 @@ ul,.header-section,.header-section-left{
     background-color: white; 
     opacity: 0.8;
 }
+.essence-logo{
+    cursor: pointer;
+}
 .index-header{
     position: sticky;
     top: 0px;
