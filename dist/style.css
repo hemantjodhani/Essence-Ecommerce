@@ -373,3 +373,80 @@ td,th,table{
     font-family: 'Courier New', Courier, monospace;
   
 }
+/* Responsive code here */
+
+@media screen and (max-width : 1010px){
+    .all-products{
+        flex-direction: column;
+    }
+}
+@media screen and (max-width : 946px){
+    .search-bar,.liked,.user{
+        display: none;
+    }
+    .category-section{
+        flex-direction: column;
+    }
+    .category{
+        margin: 0 auto;
+    }
+}
+@media screen and (max-width : 850px){
+    
+    .cart-section{
+        display: none;   
+    }
+    .brands-section{
+        flex-wrap: wrap;
+        gap: 20px;
+    }
+}
+@media screen and (max-width : 700px){
+    .discount-section-content{
+        padding-top: 0px;
+        padding-right: 0px;
+        text-align: center;
+    }
+    .category-section{
+        display: none;
+    }
+}
+@media screen and (max-width : 572px){
+    .hero-content{
+        padding-top: 30px;
+    }
+}
+@media screen and (max-width : 533px){
+    .cart-page{
+        text-align: -webkit-center;
+    }
+    .item-wrap td{
+        display: block;
+    }
+    .item-wrap{
+        padding-bottom: 30px;
+    }
+}
+@media screen and (max-width : 513px){
+    .header-section{
+        flex-direction: column;
+        padding-top: 20px;
+    }
+    .checkout{
+        border: none;
+    }
+}
+@media screen and (max-width : 429px){
+    ul{
+        gap: 15px;
+    }
+    .brands-section{
+        flex-direction: column;
+        gap: 30px;
+    }
+}
+@media screen and (max-width : 363px){
+    .header-section-left ul li{
+        font-size: 14px;
+    }
+}
