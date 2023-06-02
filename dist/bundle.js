@@ -38510,7 +38510,7 @@ async function cart_data_appender() {
             <span class="windows-wala-button">X</span>
             <img width="50px" src="${product.Image}">
           </div>
-          <p class="product-name"><span>1X</span>${product.Product_Name}</p>
+          <p class="product-name"><span>${product.quantity_} x </span>${product.Product_Name}</p>
           <p class="product-price">${product.Price}</p>
         </div>
       `);
