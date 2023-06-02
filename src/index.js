@@ -70,9 +70,5 @@ get_user_id()
         update_order_status()
         
       }
-      $(document).on("click" , ".essence-logo" , function(){
-
-        $("html, body").animate({scrollTop: 0}, 500);
-      });
     });
   })
